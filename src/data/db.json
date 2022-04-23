@@ -1,0 +1,276 @@
+{
+  "burgers": [
+    {
+      "id": 1,
+      "name": "Trad's",
+      "type": "burger"
+    },
+    {
+      "id": 2,
+      "name": "Bacon's",
+      "type": "burger"
+    },
+    {
+      "id": 3,
+      "name": "Egg's",
+      "type": "burger"
+    },
+    {
+      "id": 4,
+      "name": "X-all's",
+      "type": "burger"
+    }
+  ],
+  "sandwiches": [
+    {
+      "id": 1,
+      "name": "Fitness",
+      "type": "sandwich"
+    },
+    {
+      "id": 2,
+      "name": "Chiken's",
+      "type": "sandwich"
+    },
+    {
+      "id": 3,
+      "name": "Meat's",
+      "type": "sandwich"
+    },
+    {
+      "id": 4,
+      "name": "Vegan's",
+      "type": "sandwich"
+    }
+  ],
+  "drinks": [
+    {
+      "id": 1,
+      "name": "Soft's",
+      "type": "drink"
+    },
+    {
+      "id": 2,
+      "name": "Smoothie's",
+      "type": "drink"
+    },
+    {
+      "id": 3,
+      "name": "Juice's",
+      "type": "drink"
+    },
+    {
+      "id": 4,
+      "name": "Milkshake's",
+      "type": "drink"
+    }
+  ],
+  "ingredientes": {
+    "buns": [
+      {
+        "id": 1,
+        "tipo": "Plain"
+      },
+      {
+        "id": 2,
+        "tipo": "Sesame"
+      },
+      {
+        "id": 3,
+        "tipo": "Brioche"
+      },
+      {
+        "id": 4,
+        "tipo": "Integral"
+      }
+    ],
+    "meat": [
+      {
+        "id": 1,
+        "tipo": "Beef"
+      },
+      {
+        "id": 2,
+        "tipo": "Chiken"
+      },
+      {
+        "id": 3,
+        "tipo": "Ham"
+      },
+      {
+        "id": 4,
+        "tipo": "Veggie"
+      }
+    ],
+    "options": [
+      {
+        "id": 1,
+        "tipo": "Bacon"
+      },
+      {
+        "id": 2,
+        "tipo": "Cheddar"
+      },
+      {
+        "id": 3,
+        "tipo": "Salami"
+      },
+      {
+        "id": 4,
+        "tipo": "Tomato"
+      },
+      {
+        "id": 4,
+        "tipo": "Onions"
+      },
+      {
+        "id": 4,
+        "tipo": "Pickles"
+      }
+    ]
+  },
+  "status": [
+    {
+      "id": 1,
+      "tipo": "Sended"
+    },
+    {
+      "id": 2,
+      "tipo": "Production"
+    },
+    {
+      "id": 3,
+      "tipo": "Ready"
+    }
+  ],
+  "personal": [],
+  "cart": [
+    {
+      "\"Trad's\"": "",
+      "id": 1
+    },
+    {
+      "\"Trad's\"": "",
+      "id": 2
+    },
+    {
+      "\"Egg's\"": "",
+      "id": 3
+    },
+    {
+      "\"X-all's\"": "",
+      "id": 4
+    },
+    {
+      "\"Egg's\"": "",
+      "id": 5
+    },
+    {
+      "\"Bacon's\"": "",
+      "id": 6
+    },
+    {
+      "id": 7
+    },
+    {
+      "id": 8
+    },
+    {
+      "{\"id\":4,\"name\":\"X-all's\",\"type\":\"burger\"}": "",
+      "id": 9
+    },
+    {
+      "{\"id\":2,\"name\":\"Bacon's\",\"type\":\"burger\"}": "",
+      "id": 10
+    },
+    {
+      "{\"id\":3,\"name\":\"Egg's\",\"type\":\"burger\"}": "",
+      "id": 11
+    },
+    {
+      "name": "\"Trad's\"",
+      "id": 12
+    },
+    {
+      "name": "\"Bacon's\"",
+      "id": 13
+    },
+    {
+      "name": "\"Egg's\"",
+      "id": 14
+    },
+    {
+      "name": "\"X-all's\"",
+      "id": 15
+    },
+    {
+      "hamburger": "X-all's",
+      "id": 16
+    },
+    {
+      "hamburger": "Egg's",
+      "id": 17
+    },
+    {
+      "hamburger": "Bacon's",
+      "id": 18
+    },
+    {
+      "hamburger": {
+        "id": 1,
+        "name": "Trad's",
+        "type": "burger"
+      },
+      "id": 19
+    },
+    {
+      "hamburger": {
+        "id": 2,
+        "name": "Bacon's",
+        "type": "burger"
+      },
+      "id": 20
+    },
+    {
+      "hamburger": {
+        "id": 3,
+        "name": "Egg's",
+        "type": "burger"
+      },
+      "id": 21
+    },
+    {
+      "hamburger": {
+        "id": 1,
+        "name": "Trad's",
+        "type": "burger"
+      },
+      "id": 22
+    },
+    {
+      "hamburger": {
+        "id": 2,
+        "name": "Bacon's",
+        "type": "burger"
+      },
+      "id": 23
+    },
+    {
+      "hamburger": {
+        "id": 3,
+        "name": "Egg's",
+        "type": "burger"
+      },
+      "id": 24
+    },
+    {
+      "hamburger": {
+        "id": 4,
+        "name": "X-all's",
+        "type": "burger"
+      },
+      "id": 25
+    }
+  ],
+  "orders": []
+}
