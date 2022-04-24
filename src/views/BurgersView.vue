@@ -1,36 +1,30 @@
 <template>
-  <div>
-    <h1>BURGERS</h1>
-    <div v-for="item in data" :key="item.id">
-     <li>{{item.name}}</li>
-     <button @click="handleAddToCart(item)">Add to Cart</button>
+  <h1>BURGERS</h1>
+  <div v-if="error">{{ error }}</div>
+  <div v-if="data.length">
+    <div v-for="item in data" :key="item?.id">
+      <li>{{ item.name }}</li>
+      <li>{{ item.price }}</li>
+      <button @click="addToCart(req.cart, item.name, item.price)">
+        Add to Cart
+      </button>
     </div>
+  </div>
+  <div v-if="!error && !data.length">
+    <h1>Loading...</h1>
   </div>
 </template>
 
 <script setup lang="ts">
-import axios from 'axios'
-import { onMounted, ref } from 'vue';
-const _url = "http://localhost:3000/burgers"
-const _cart = "http://localhost:3000/cart"
-const data = ref()
+import { getData } from "@/composables/getData";
+import { addData } from "@/composables/addData";
+import { onMounted } from "vue";
+import { useRequisitions } from "@/stores/requisitions";
 
-onMounted(()=> getBurgers())
- 
-const getBurgers = async () => {
- await axios.get(_url).then((res) => {
-   data.value = res.data
-   console.log(res)
- })
-}
-
-const handleAddToCart = async (item: Object) => {
-  await axios.post(_cart,{
-    hamburger: item
-  }
-  ).then((res) => console.log(res))
-}
-
+const req = useRequisitions();
+const { data, load, error } = getData();
+const { addToCart } = addData();
+onMounted(() => load(req.burgers));
 </script>
 
 <style scoped></style>

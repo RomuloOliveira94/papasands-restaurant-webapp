@@ -2,7 +2,7 @@
   "name": "papa-sands",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite --port 3001",
+    "dev": "vite --port 3005",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview --port 5050",
     "typecheck": "vue-tsc --noEmit",
