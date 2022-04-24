@@ -27,4 +27,5 @@ const { addToCart } = addData();
 onMounted(() => load(req.drinks));
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

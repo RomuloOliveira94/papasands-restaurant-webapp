@@ -6,6 +6,19 @@ import DrinksView from "../views/DrinksView.vue";
 import CartView from "../views/CartView.vue";
 import PersonalView from "@/views/PersonalView.vue"
 import OrdersView from "@/views/OrdersView.vue";
+import RegisterView from "@/views/RegisterView.vue";
+import LoginView from "@/views/LoginView.vue";
+
+import { auth } from '../firebase/config'
+
+const requireAuth = (to: any, from: any, next: (arg0?: { name: string; } | undefined) => void) => {
+  let user = auth.currentUser
+  if (!user) {
+    next({ name: 'login' })
+  } else {
+    next()
+  }
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,11 +52,23 @@ const router = createRouter({
       path: "/cart",
       name: "cart",
       component: CartView,
+      beforeEnter: requireAuth
     },
     {
       path: "/orders",
       name: "orders",
       component: OrdersView,
+      beforeEnter: requireAuth
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: LoginView,
+    },
+    {
+      path: "/register",
+      name: "register",
+      component: RegisterView,
     }
   ],
 });

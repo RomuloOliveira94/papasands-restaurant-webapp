@@ -9,10 +9,9 @@ module.exports = {
     "@vue/eslint-config-typescript/recommended",
     "@vue/eslint-config-prettier",
   ],
+  "prettier/prettier": ["error", {"singleQuote": true, "parser": "flow"}],
   env: {
     "vue/setup-compiler-macros": true,
   },
-  rules: {
-    "prettier/prettier": "error",
-  },
+  rules: {},
 };

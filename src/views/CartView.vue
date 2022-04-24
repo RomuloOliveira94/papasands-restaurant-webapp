@@ -13,23 +13,22 @@
   <div v-else>
     <h1>Empty Cart</h1>
   </div>
-  <h2>Total: {{ total }}</h2>
-  <button @click="sum">somar</button>
+  <h2>Total: {{ handleTotal }}</h2>
 </template>
 
 <script setup lang="ts">
 import type { Cart } from "@/types/Cart";
-import { onMounted, ref } from "vue";
+import { computed, onMounted,  ref } from "vue";
 import { useRequisitions } from "@/stores/requisitions";
 import { getData } from "@/composables/getData";
 import { addData } from "@/composables/addData";
 import axios from "axios";
+import router from "@/router";
 
 const req = useRequisitions();
-const total = ref(null);
+const total = ref<Cart['price']>();
 const { addToOrders } = addData();
 const { data, load, error } = getData();
-const res = ref(data);
 
 onMounted(() => {
   load(req.cart);
@@ -42,7 +41,7 @@ const handleDeleteItensFromCart = async (item: number) => {
       console.log("Delete with success");
     })
     .catch((e) => (error.value = e));
-  return load(req.cart);
+  load(req.cart)
 };
 
 const handleOrder = (url: string, order: Cart) => {
@@ -59,14 +58,15 @@ const clearCart = async () => {
       })
       .catch((e) => e);
   });
-  load(req.cart);
+  router.push('/orders')
 };
 
-const sum = async () => {
-  res.value.filter(async (value) => {
-    total.value += value.price;
+const handleTotal = computed(() => {
+  data.value.map((value) => {
+  total.value += value.price 
   });
-};
+  return total.value
+});
 </script>
 
 <style scoped></style>

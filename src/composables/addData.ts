@@ -1,11 +1,11 @@
 import axios from "axios";
 import { ref } from "vue";
-import type { Product } from "@/types/Product";
 import type { Cart } from "@/types/Cart";
 
 export const addData = () => {
   const error = ref();
-  const addToCart = async (url: string, name: string, price: string) => {
+  const data = ref([])
+  const addToCart = async (url: string, name: string, price: number) => {
     try {
       await axios
         .post(url, {
@@ -13,7 +13,7 @@ export const addData = () => {
           name: name,
           price: price,
         })
-        .then((res) => console.log("Add to Cart"));
+        .then((res) => data.value = res.data );
     } catch (err) {
       error.value = err;
     }
@@ -25,7 +25,7 @@ export const addData = () => {
           id: "",
           order: item,
         })
-        .then((res) => console.log("Add to Order"));
+        .then((res) => data.value = res.data);
     } catch (err) {
       error.value = err;
     }
@@ -34,5 +34,6 @@ export const addData = () => {
     addToCart,
     addToOrders,
     error,
+    data,
   };
 };
