@@ -1,3 +1,4 @@
+import "bootstrap/dist/css/bootstrap.css"
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import { auth } from './firebase/config'
@@ -13,3 +14,5 @@ onAuthStateChanged(auth, () => {
   }
   app = true
 })
+
+import "bootstrap/dist/js/bootstrap.js"

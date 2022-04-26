@@ -1,64 +1,65 @@
 <template>
-    <div class="backdrop" @click.self="$emit('close')">
+  <div class="backdrop" @click.self="$emit('close')">
     <div class="modal">
-     <h1>{{data.name}}</h1>
-      <p>{{data.description}}</p>
+      <h1>{{ data.name }}</h1>
+      <img :src="data.image" :alt="data.name" />
+      <p>{{ data.description }}</p>
+      <button v-if="user" @click="$emit('addToCart', data)">Cart</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Product }  from "@/types/Product";
+import type { Product } from "@/types/Product";
+import getUser from "@/composables/getUser";
+const { user } = getUser();
 defineProps<{
-    data: Product
-    error?: string
-}>()
+  data: Product;
+  error?: string;
+}>();
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import "../assets/base.scss";
 .modal {
-  width: 400px;
+  width: 90vw;
+  height: 60vh;
   padding: 20px;
-  margin: 100px auto;
   background: white;
   border-radius: 10px;
   color: black;
-  text-align: center;
-  z-index: -2;
-  position: absolute;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 7;
+
+  img {
+    max-width: 100%;
+    width: 80%;
+    border: 2px solid red;
+    border-radius: 10px;
+  }
+
+  p{
+    margin-top: 10px;
+     text-align: center; 
+     font-size: 1.5em;
+  }
 }
 .backdrop {
   top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   position: fixed;
   background: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100%;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.modal.sale {
-  background-color: crimson;
-  color: white;
-}
-
-.modal.sale h1, .modal.sale .actions a {
-  color: white;
-}
-.modal.dark {
-  background: black;
-  color: white;
-}
-
-.modal .actions {
-    text-align: center;
-    margin: 30px 0 10px 0;
-    color: #333;
-}
-.modal .actions a{
-    color: #333;
-    padding: 8px;
-    border: 1px solid #eee;
-    border-radius:4px ;
-    text-decoration: none;
-    margin: 10px;
-}
-
 </style>

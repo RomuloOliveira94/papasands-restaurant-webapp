@@ -13,12 +13,12 @@
   <div v-else>
     <h1>Empty Cart</h1>
   </div>
-  <h2>Total: {{ handleTotal }}</h2>
+  <h2>Total: {{ getTotal }}</h2>
 </template>
 
 <script setup lang="ts">
 import type { Cart } from "@/types/Cart";
-import { computed, onMounted,  ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRequisitions } from "@/stores/requisitions";
 import { getData } from "@/composables/getData";
 import { addData } from "@/composables/addData";
@@ -26,9 +26,18 @@ import axios from "axios";
 import router from "@/router";
 
 const req = useRequisitions();
-const total = ref<Cart['price']>();
+const total = ref<number>();
 const { addToOrders } = addData();
 const { data, load, error } = getData();
+
+const getTotal = computed(() => {
+  // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+  total.value = data.value.reduce((acc, data) => {
+    acc += data.price;
+    return acc;
+  }, 0);
+  return total.value.toFixed(2);
+});
 
 onMounted(() => {
   load(req.cart);
@@ -41,7 +50,7 @@ const handleDeleteItensFromCart = async (item: number) => {
       console.log("Delete with success");
     })
     .catch((e) => (error.value = e));
-  load(req.cart)
+  load(req.cart);
 };
 
 const handleOrder = (url: string, order: Cart) => {
@@ -49,7 +58,7 @@ const handleOrder = (url: string, order: Cart) => {
   clearCart();
 };
 
-const clearCart = async () => {
+const clearCart = () => {
   data.value.filter(async (order) => {
     await axios
       .delete(req.cart + `/${order.id}`)
@@ -58,15 +67,8 @@ const clearCart = async () => {
       })
       .catch((e) => e);
   });
-  router.push('/orders')
+  router.push("/orders");
 };
-
-const handleTotal = computed(() => {
-  data.value.map((value) => {
-  total.value += value.price 
-  });
-  return total.value
-});
 </script>
 
 <style scoped></style>

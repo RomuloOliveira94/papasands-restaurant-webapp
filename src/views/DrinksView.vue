@@ -1,31 +1,47 @@
 <template>
-  <h1>Drinks</h1>
-  <div v-if="error">{{ error }}</div>
-  <div v-if="data.length">
-    <div v-for="item in data" :key="item?.id">
-      <li>{{ item.name }}</li>
-      <li>{{ item.price }}</li>
-      <button @click="addToCart(req.cart, item.name, item.price)">
-        Add to Cart
-      </button>
+  <main>
+    <FoodCards
+      :data="data"
+      title="Drinks's"
+      :error="error"
+      @show-modal="toggleModal"
+      @add-to-cart="handleAddToCart"
+    />
+    <div v-if="showModal">
+      <Modal
+        :data="(modalDescription as Product)"
+        :error="error"
+        @close="toggleModal"
+      />
     </div>
-  </div>
-  <div v-if="!error && !data.length">
-    <h1>Loading...</h1>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
+import type { Product } from "@/types/Product";
 import { getData } from "@/composables/getData";
 import { addData } from "@/composables/addData";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useRequisitions } from "@/stores/requisitions";
+import FoodCards from "@/components/FoodCards.vue";
+import Modal from "@/components/ModalDescriptions.vue";
 
+const { addToCart } = addData();
+const modalDescription = ref({});
 const req = useRequisitions();
 const { data, load, error } = getData();
-const { addToCart } = addData();
+const showModal = ref(false);
+
+const handleAddToCart = (item: Product) => {
+  addToCart(req.cart, item.name, item.price);
+};
+
 onMounted(() => load(req.drinks));
+
+const toggleModal = (id: number) => {
+  modalDescription.value = id;
+  showModal.value = !showModal.value;
+};
 </script>
 
-<style scoped>
-</style>
+<style lang="scss" scoped></style>

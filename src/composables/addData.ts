@@ -4,7 +4,7 @@ import type { Cart } from "@/types/Cart";
 
 export const addData = () => {
   const error = ref();
-  const data = ref([])
+  const data = ref([]);
   const addToCart = async (url: string, name: string, price: number) => {
     try {
       await axios
@@ -13,7 +13,7 @@ export const addData = () => {
           name: name,
           price: price,
         })
-        .then((res) => data.value = res.data );
+        .then((res) => (data.value = res.data));
     } catch (err) {
       error.value = err;
     }
@@ -25,7 +25,7 @@ export const addData = () => {
           id: "",
           order: item,
         })
-        .then((res) => data.value = res.data);
+        .then((res) => (data.value = res.data));
     } catch (err) {
       error.value = err;
     }
