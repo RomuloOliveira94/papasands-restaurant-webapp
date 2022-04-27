@@ -1,7 +1,7 @@
 <template>
   <h1>Orders</h1>
   <h2 v-if="!orders">Loading...</h2>
-  <h2 v-if="!orders.length">No orders... Yet =D</h2>
+  <h2 v-if="!orders?.length">No orders... Yet =D</h2>
   <div
     v-for="order in (orders as Order[])"
     :key="order.id"

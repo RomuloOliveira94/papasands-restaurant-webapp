@@ -1,7 +1,7 @@
 <template>
   <main class="container">
     <h1>BAG</h1>
-    <div v-if="cart.length">
+    <div v-if="cart?.length">
       <div
         v-for="product in (cart as Cart[])"
         :key="product.id"
@@ -61,7 +61,7 @@ const getTotal = () => {
     acc += data.price;
     return acc;
   }, 0);
-  return total.value;
+  return total.value?.toFixed(2);
 };
 
 const clearCart = () => {

@@ -7,6 +7,7 @@ import CartView from "../views/CartView.vue";
 import OrdersView from "@/views/OrdersView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import LoginView from "@/views/LoginView.vue";
+import NotFoundView from "@/views/NotFoundView.vue";
 
 import { auth } from "../firebase/config";
 
@@ -53,6 +54,11 @@ const router = createRouter({
       name: "register",
       component: RegisterView,
     },
+    {
+      path: "/:catchAll(.*)",
+      name: "404",
+      component: NotFoundView,
+    }
   ],
 });
 

@@ -26,7 +26,9 @@ import Modal from "@/components/ModalDescriptions.vue";
 import { addData } from "@/composables/addData";
 import getUser from "@/composables/getUser";
 import getCollection from "@/composables/getCollections";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const modalDescription = ref({});
 const showModal = ref(false);
 const { addToCart, error } = addData();
@@ -34,6 +36,7 @@ const { user } = getUser();
 
 const handleAddToCart = (item: Product) => {
   addToCart(item, user.value?.uid);
+  router.push({ name: "cart" });
 };
 
 const { documents: burgers } = getCollection("burgers");
