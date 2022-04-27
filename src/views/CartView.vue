@@ -1,20 +1,19 @@
 <template>
   <main class="container">
-    <h1>Cart</h1>
-    <div v-if="data.length">
+    <h1>BAG</h1>
+    <div v-if="cart.length">
       <div
-        v-for="product in (data as Cart[])"
+        v-for="product in (cart as Cart[])"
         :key="product.id"
         class="cart_container"
       >
         <ul class="cart_list">
           <li>{{ product.name }}</li>
-          <img :src="product.image" :alt="product.name" />
           <li>${{ product.price }}</li>
-          <button @click="handleDeleteItensFromCart(product.id)">Remove</button>
+          <button @click="handleDelete(product.id)">Remove</button>
         </ul>
       </div>
-      <form>
+      <form class="cart_form">
         <label for="title">Address</label>
         <input type="text" name="address" v-model="address" required />
         <label for="author">Payment form</label>
@@ -22,70 +21,52 @@
           <option value="Credit Card">Credit Card</option>
           <option value="Cash">Cash</option>
         </select>
-        {{ payment }}
       </form>
-      <div v-if="error">{{ error }}</div>
-      <button @click="handleSubmitOrder(data as Cart, total as number)">
+      <p v-if="error" class="error">{{ error }}</p>
+      <h2 v-if="cart?.length">Total: ${{ getTotal() }}</h2>
+      <button
+        @click="handleSubmitOrder(cart as Cart, total as number)"
+        id="submitOrder"
+      >
         Submit Order
       </button>
     </div>
     <div v-else>
-      <h1>Empty Bag :(</h1>
+      <h2>Empty Bag :(</h2>
     </div>
-    <h2 v-if="data.length">Total: ${{ getTotal() }}</h2>
   </main>
 </template>
 
 <script setup lang="ts">
 import getUser from "../composables/getUser";
 import { db } from "../firebase/config";
-import { addDoc, collection } from "firebase/firestore";
 import type { Cart } from "@/types/Cart";
-import { onMounted, ref } from "vue";
-import { useRequisitions } from "@/stores/requisitions";
-import { getData } from "@/composables/getData";
-import { addData } from "@/composables/addData";
-import axios from "axios";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
+import getCollection from "@/composables/getCollections";
+import { doc, deleteDoc } from "firebase/firestore";
+import { addData } from "@/composables/addData";
 
-const req = useRequisitions();
 const total = ref<number>();
-const { data, load, error } = getData();
 const address = ref("");
-const payment = ref("");
+const payment = ref("Cash");
 const { user } = getUser();
 const router = useRouter();
+const { submitOrder, error } = addData();
 
-onMounted(() => {
-  load(req.cart);
-});
+const { documents: cart } = getCollection("cart", user.value?.uid);
 
 const getTotal = () => {
-  total.value = data.value.reduce((acc, data) => {
+  total.value = cart.value.reduce((acc: number, data: Cart) => {
     acc += data.price;
     return acc;
   }, 0);
-  return total.value.toFixed(2);
-};
-
-const handleDeleteItensFromCart = async (item: number) => {
-  await axios
-    .delete(req.cart + `/${item}`)
-    .then(() => {
-      console.log("Delete with success");
-    })
-    .catch((e) => (error.value = e));
-  load(req.cart);
+  return total.value;
 };
 
 const clearCart = () => {
-  data.value.filter(async (order) => {
-    await axios
-      .delete(req.cart + `/${order.id}`)
-      .then(() => {
-        console.log("Delete with success");
-      })
-      .catch((e) => e);
+  cart.value.forEach(async (cart: Cart) => {
+    handleDelete(cart.id);
   });
   router.push("/orders");
 };
@@ -107,17 +88,14 @@ const handleSubmitOrder = async (order: Cart, total: number) => {
   if (!checkObsOfOrder()) {
     return;
   }
-  const colRef = collection(db, "orders");
-  await addDoc(colRef, {
-    order: order,
-    total: total,
-    address: address.value,
-    payment: payment.value,
-    userUid: user?.value?.uid,
-  });
+  submitOrder(order, total, address.value, payment.value, user.value?.uid);
   clearCart();
   address.value = "";
   payment.value = "";
+};
+const handleDelete = (item: string) => {
+  const docRef = doc(db, "cart", item);
+  deleteDoc(docRef);
 };
 </script>
 
@@ -147,14 +125,21 @@ const handleSubmitOrder = async (order: Cart, total: number) => {
       border-radius: 15px;
     }
     button {
-      margin-top: 20px auto;
       align-self: center;
       justify-self: center;
     }
   }
 }
-
+.cart_form {
+  width: 100%;
+  margin: 30px auto;
+  padding: 0;
+  height: 30vh;
+}
 h2 {
-  margin-top: 20px;
+  margin: 20px auto;
+}
+#submitOrder {
+  margin-bottom: 20px;
 }
 </style>

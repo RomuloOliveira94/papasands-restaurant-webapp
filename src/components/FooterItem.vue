@@ -1,7 +1,12 @@
 <template>
   <footer class="footer">
     <h3>PapaSand's the best fast food restaurant!</h3>
-    <p>Developed by Rômulo Oliveira</p>
+    <p>
+      Developed by
+      <a href="https://github.com/RomuloOliveira94" target="_blank"
+        >Rômulo Oliveira</a
+      >
+    </p>
   </footer>
 </template>
 

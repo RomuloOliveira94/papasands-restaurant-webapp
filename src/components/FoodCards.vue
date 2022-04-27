@@ -2,8 +2,8 @@
   <main>
     <h1>{{ title }}</h1>
     <div v-if="error">{{ error }}</div>
-    <div v-if="data?.length" class="card_container">
-      <div v-for="item in data" :key="item?.id" class="card">
+    <div v-if="data" class="card_container">
+      <div v-for="item in (data as Cart[])" :key="item?.id" class="card">
         <img :src="item.image" :alt="item.name" />
         <h3 class="title">{{ item.name }}</h3>
         <div class="description">
@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-    <div v-if="!error && !data?.length">
+    <div v-if="!error && !data">
       <h1>Loading...</h1>
     </div>
   </main>
@@ -25,11 +25,11 @@
 
 <script setup lang="ts">
 import { useRouter } from "vue-router";
-import type { Product } from "@/types/Product";
 import getUser from "@/composables/getUser";
+import type { Cart } from "@/types/Cart";
 
 defineProps<{
-  data: Product[];
+  data: Cart;
   title: string;
   error?: string;
 }>();

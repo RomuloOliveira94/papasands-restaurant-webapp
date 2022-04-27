@@ -17,8 +17,10 @@ import router from "@/router";
 
 <style lang="scss" scoped>
 .hero {
-  position: relative;
+  position: absolute;
   min-height: 84vh;
+  width: 100%;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: start;

@@ -17,8 +17,19 @@ const signup = async (email: string, password: string) => {
 
     error.value = null;
     isPending.value = false;
-  } catch (err) {
-    error.value = err
+  } catch (e: any) {
+    console.log(">>>>", typeof e.message);
+    console.log(e.message);
+    if (e.message.includes("Password")) {
+      error.value = "Password must contain at least 6 characters";
+    } else if (e.message.includes("email-already")) {
+      error.value = "E-mail already registered";
+    } else if (e.message.includes("invalid-email")) {
+      error.value = "Invalid email";
+    } else {
+      error.value = "There is a problem, please try again later.";
+    }
+
     isPending.value = false;
   }
 };

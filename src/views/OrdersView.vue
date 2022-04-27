@@ -1,6 +1,7 @@
 <template>
   <h1>Orders</h1>
-  <h2 v-if="!orders">Loading</h2>
+  <h2 v-if="!orders">Loading...</h2>
+  <h2 v-if="!orders.length">No orders... Yet =D</h2>
   <div
     v-for="order in (orders as Order[])"
     :key="order.id"
@@ -16,13 +17,32 @@
     <h4>
       Address:
       <strong
-        ><u>{{ order.address }}</u>
+        ><u v-show="showUpdateA" @click="showUpdateA = !showUpdateA">{{
+          order.address
+        }}</u>
+        <div v-if="!showUpdateA">
+          <input type="text" v-model="newAddress" />
+          <button @click="handleUpdateAddress(order)" id="updateButton">
+            Update
+          </button>
+        </div>
       </strong>
     </h4>
     <h4>
       Payment form:
       <strong>
-        <u>{{ order.payment }}</u>
+        <u v-show="showUpdateP" @click="showUpdateP = !showUpdateP">{{
+          order.payment
+        }}</u>
+        <div v-if="!showUpdateP">
+          <select name="payment" v-model="newPayment" required>
+            <option value="Credit Card">Credit Card</option>
+            <option value="Cash">Cash</option>
+          </select>
+          <button @click="handleUpdatePayment(order)" id="updateButton">
+            Update
+          </button>
+        </div>
       </strong>
     </h4>
     <hr />
@@ -34,22 +54,56 @@
         >
       </li>
     </ul>
+    <p class="error">{{ error }}</p>
     <button @click="handleDelete(order)">Cancel order</button>
   </div>
 </template>
 
 <script setup lang="ts">
-import getCollection from "@/composables/getOrders";
+import getCollection from "@/composables/getCollections";
 import getUser from "@/composables/getUser";
 import { db } from "../firebase/config";
-import { doc, deleteDoc } from "firebase/firestore";
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import type { Order } from "@/types/Order";
+import { ref } from "vue";
+
+const error = ref("");
+const newAddress = ref("");
+const newPayment = ref("");
+const showUpdateA = ref(true);
+const showUpdateP = ref(true);
 
 const { user } = getUser();
-const { documents: orders } = getCollection("orders", user.value.uid);
+const { documents: orders } = getCollection("orders", user.value?.uid);
 const handleDelete = (order: Order) => {
   const docRef = doc(db, "orders", order.id);
   deleteDoc(docRef);
+};
+const handleUpdateAddress = (order: Order) => {
+  if (!newAddress.value) {
+    error.value = "You need to fill field";
+    return;
+  }
+  const docRef = doc(db, "orders", order.id);
+  updateDoc(docRef, {
+    address: newAddress.value,
+  });
+  showUpdateA.value = true;
+  error.value = "";
+  newAddress.value = "";
+};
+const handleUpdatePayment = (order: Order) => {
+  if (!newPayment.value) {
+    error.value = "You need to fill the field";
+    return;
+  }
+  const docRef = doc(db, "orders", order.id);
+  updateDoc(docRef, {
+    payment: newPayment.value,
+  });
+  showUpdateP.value = true;
+  error.value = "";
+  newPayment.value = "";
 };
 </script>
 
@@ -59,8 +113,10 @@ const handleDelete = (order: Order) => {
   display: flex;
   flex-direction: column;
   list-style: none;
-  margin-bottom: 25px;
-  margin-top: 25px;
+  margin: 25px auto;
+  max-width: 960px;
+  border: 4px dotted $secondary-color;
+  padding: 20px;
   h2 {
     border-bottom: 1px solid $secondary-color;
     align-self: center;
@@ -82,13 +138,21 @@ const handleDelete = (order: Order) => {
   }
   .itens_container {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     padding: 10px;
     list-style: none;
   }
   button {
     align-self: center;
+  }
+  #updateButton {
+    align-self: center;
+    padding: 2px;
+    border-radius: 0px 5px 5px 0px;
+  }
+  input {
+    border-radius: 5px 0px 0px 5px;
   }
 }
 </style>

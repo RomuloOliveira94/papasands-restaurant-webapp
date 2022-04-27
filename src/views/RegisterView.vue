@@ -1,5 +1,5 @@
 <template>
-  <div class="form_container">
+  <main class="container">
     <h1>Welcome to PapaSand's the best Fast Food!</h1>
     <form @submit.prevent="handleSubmit">
       <h2>Sign up</h2>
@@ -8,9 +8,9 @@
       <label for="password">Password:</label>
       <input type="password" name="password" v-model="password" required />
       <button>Sign up</button>
-      <div v-if="error">{{ error }}</div>
+      <p v-if="error" class="error">{{ error }}</p>
     </form>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -31,6 +31,6 @@ const handleSubmit = async () => {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @import "../assets/base.scss";
 </style>

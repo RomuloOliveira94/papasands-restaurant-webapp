@@ -17,9 +17,14 @@ const login = async (email: string, password: string) => {
 
     error.value = null;
     isPending.value = false;
-  } catch (err) {
-    console.log(err);
-    error.value = err;
+  } catch (err: any) {
+    if (err.message.includes("user-not-found")) {
+      error.value = "User not found";
+    } else if (err.message.includes("wrong-password")) {
+      error.value = "Wrong password";
+    } else {
+      error.value = "There is a problem, please try again later.";
+    }
     isPending.value = false;
   }
 };
