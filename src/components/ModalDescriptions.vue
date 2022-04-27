@@ -37,7 +37,7 @@ defineProps<{
 
   img {
     max-width: 100%;
-    width: 80%;
+    width: 350px;
     border: 2px solid red;
     border-radius: 10px;
   }

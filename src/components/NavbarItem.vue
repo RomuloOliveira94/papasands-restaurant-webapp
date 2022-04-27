@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-white nav_container">
-    <div class="container-fluid navs">
+    <div class="container-fluid navs-container">
       <img @click="router.push('/')" src="/logo-ps.png" alt="" width="120" />
       <button
         class="navbar-toggler"
@@ -98,7 +98,7 @@ const handleLogout = () => {
   }
 }
 
-.navs {
+.navs-container {
   background-color: white;
   text-align: center;
   font-size: 1.5em;

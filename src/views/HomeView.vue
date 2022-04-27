@@ -31,7 +31,7 @@ import router from "@/router";
     z-index: 0;
   }
   .hero_text {
-    min-width: 25em;
+    min-width: 20em;
     z-index: 1;
     display: flex;
     flex-direction: column;
@@ -44,23 +44,24 @@ import router from "@/router";
     font-weight: 900;
     color: white;
     text-transform: uppercase;
+    text-align: start;
   }
   p {
     font-size: 2.4em;
     font-weight: 600;
     color: white;
+    text-align: start;
     max-width: 57em;
   }
   button {
     display: block;
-    margin-top: 25px;
-    height: 50px;
+    height: 65px;
     width: 10em;
     text-transform: uppercase;
     font-weight: 800;
-    font-size: 25px;
+    font-size: 30px;
     letter-spacing: 2px;
-    text-align: center;
+    justify-self: flex-start;
   }
 }
 </style>

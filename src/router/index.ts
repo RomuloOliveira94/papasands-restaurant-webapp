@@ -10,19 +10,6 @@ import LoginView from "@/views/LoginView.vue";
 
 import { auth } from "../firebase/config";
 
-const requireAuth = (
-  to: any,
-  from: any,
-  next?: (arg0?: { name: string }) => void
-) => {
-  const user = auth.currentUser;
-  if (!user) {
-    next({ name: "login" });
-  } else {
-    next();
-  }
-};
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -50,13 +37,11 @@ const router = createRouter({
       path: "/cart",
       name: "cart",
       component: CartView,
-      beforeEnter: requireAuth,
     },
     {
       path: "/orders",
       name: "orders",
       component: OrdersView,
-      beforeEnter: requireAuth,
     },
     {
       path: "/login",
@@ -69,6 +54,15 @@ const router = createRouter({
       component: RegisterView,
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  const user = auth.currentUser;
+  if ((to.name === "cart" && !user) || (to.name === "orders" && !user)) {
+    next("/login");
+  } else {
+    next();
+  }
 });
 
 export default router;

@@ -33,7 +33,7 @@ const { data, load, error } = getData();
 const showModal = ref(false);
 
 const handleAddToCart = (item: Product) => {
-  addToCart(req.cart, item.name, item.price);
+  addToCart(req.cart, item);
 };
 
 onMounted(() => load(req.drinks));
