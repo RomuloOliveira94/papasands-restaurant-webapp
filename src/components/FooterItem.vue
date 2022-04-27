@@ -16,7 +16,8 @@ footer {
   background-color: white;
   width: 100%;
   z-index: 2;
-  h3, p{
+  h3,
+  p {
     margin-top: 10px;
     text-align: center;
   }

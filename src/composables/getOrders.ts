@@ -2,18 +2,17 @@ import { ref, watchEffect } from "vue";
 import { db } from "../firebase/config";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 
-const getCollection = (c: string, q: [string, string, string]) => {
-  const documents = ref(null);
-
+const getCollection = (c: string, q: string) => {
+  const documents = ref();
   // collection reference
-  let colRef = collection(db, c);
+  const collectionRef = collection(db, c);
 
   if (q) {
     console.log(...q);
-    colRef = query(colRef, where(...q));
+    const search = query(collectionRef, where("userUid", "==", q));
   }
 
-  const unsub = onSnapshot(colRef, (snapshot) => {
+  const unsub = onSnapshot(collectionRef, (snapshot) => {
     const results: { id: string }[] | null = [];
     snapshot.docs.forEach((doc) => {
       results.push({ ...doc.data(), id: doc.id });

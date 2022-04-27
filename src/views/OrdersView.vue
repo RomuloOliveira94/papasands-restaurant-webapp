@@ -42,16 +42,11 @@
 import getCollection from "@/composables/getOrders";
 import getUser from "@/composables/getUser";
 import { db } from "../firebase/config";
-import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { doc, deleteDoc } from "firebase/firestore";
 import type { Order } from "@/types/Order";
-import { ref } from "vue";
 
 const { user } = getUser();
-const { documents: orders } = getCollection("orders", [
-  "userUid",
-  "==",
-  user.value.uid,
-]);
+const { documents: orders } = getCollection("orders", user.value.uid);
 const handleDelete = (order: Order) => {
   const docRef = doc(db, "orders", order.id);
   deleteDoc(docRef);

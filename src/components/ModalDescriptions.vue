@@ -42,10 +42,10 @@ defineProps<{
     border-radius: 10px;
   }
 
-  p{
+  p {
     margin-top: 10px;
-     text-align: center; 
-     font-size: 1.5em;
+    text-align: center;
+    font-size: 1.5em;
   }
 }
 .backdrop {

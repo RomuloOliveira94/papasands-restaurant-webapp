@@ -54,7 +54,7 @@ const { data, load, error } = getData();
 const address = ref("");
 const payment = ref("");
 const { user } = getUser();
-const router = useRouter()
+const router = useRouter();
 
 onMounted(() => {
   load(req.cart);

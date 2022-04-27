@@ -54,7 +54,7 @@
           <div v-if="!user" class="links_user">
             <RouterLink to="/login" class="nav-link"
               ><span class="material-icons icon"> login </span></RouterLink
-            > 
+            >
             <RouterLink to="/register" id="register">or Sign up</RouterLink>
           </div>
         </div>
@@ -109,11 +109,10 @@ const handleLogout = () => {
   align-items: center;
   background-color: white;
 }
-.links_user{
+.links_user {
   display: flex;
-  align-items:center;
+  align-items: center;
   margin: 0 auto;
-
 }
 .login {
   display: flex;

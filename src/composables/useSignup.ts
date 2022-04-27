@@ -2,7 +2,7 @@ import { ref } from "vue";
 import { auth } from "../firebase/config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-const error = ref(null);
+const error = ref();
 const isPending = ref(false);
 
 const signup = async (email: string, password: string) => {
@@ -17,9 +17,8 @@ const signup = async (email: string, password: string) => {
 
     error.value = null;
     isPending.value = false;
-  } catch (err: any) {
-    console.log(err.message);
-    error.value = err.message;
+  } catch (err) {
+    error.value = err
     isPending.value = false;
   }
 };
