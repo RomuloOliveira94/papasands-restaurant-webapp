@@ -1,39 +1,64 @@
-# papa-sands
+# PapaSand's Restaurant <img src="./public/logo-ps.png" alt="website" width="50px">
 
-This template should help get you started developing with Vue 3 in Vite.
+<br>
 
-## Recommended IDE Setup
+<img src="./src/assets/readme/papa01.png" alt="website">
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
 
-## Type Support for `.vue` Imports in TS
+> This project is a full stack and totally responsive webapp, for the restaurant papasand's. In this app we can create a user and login, see the cart, choose the food that we want, put the information for the order and do the order. If we want we can cancel the order or change the address or payment form.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+<br>
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+### Built With
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+* [Vite.js](https://vitejs.dev)
+* [Vue.js](https://vuejs.org/)
+* [Typescript](https://www.typescriptlang.org)
+* [SASS](https://sass-lang.com)
+* [Firebase](firebase.google.com/)
+* [Bootstrap](https://getbootstrap.com)
 
-## Customize configuration
+<br>
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## 💻 Prerequisites
 
-## Project Setup
+<br>
 
-```sh
-npm install
-```
+npm
+  ```sh
+  npm install npm@latest -g
+  ```
+<br>
+
+## 🚀 Installing  <PapaSand's>
+
+<br>
+
+Clone the repo
+   ```sh
+   git clone https://github.com/RomuloOliveira94/papasands-restaurant-webapp.git
+   ```
+
+Install NPM packages
+   ```sh
+   npm install
+   ```
+<br>
+
+
+## ☕ Using <PapaSand's>
+
+<br>
 
 ### Compile and Hot-Reload for Development
+
 
 ```sh
 npm run dev
 ```
 
 ### Type-Check, Compile and Minify for Production
+
 
 ```sh
 npm run build
@@ -44,3 +69,13 @@ npm run build
 ```sh
 npm run lint
 ```
+<br>
+
+
+## 📝 License
+
+<br>
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
